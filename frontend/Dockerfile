@@ -16,9 +16,14 @@ RUN npm run build
 
 FROM nginx:1.25-alpine
 
+RUN apk add --no-cache bash
+
 COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/nginx.conf /etc/nginx/templates/default.conf.template
+COPY nginx/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 80
 
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
