@@ -44,8 +44,8 @@ services:
 
   backend:
     build:
-      context: .
-      dockerfile: Dockerfile.backend
+      context: ./backend
+      dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
       postgres:
@@ -92,8 +92,8 @@ services:
 
   celery-worker:
     build:
-      context: .
-      dockerfile: Dockerfile.backend
+      context: ./backend
+      dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
       redis:
@@ -115,8 +115,8 @@ services:
 
   celery-beat:
     build:
-      context: .
-      dockerfile: Dockerfile.backend
+      context: ./backend
+      dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
       redis:
