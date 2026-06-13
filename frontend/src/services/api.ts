@@ -154,9 +154,9 @@ async function request<T>(
         continue;
       }
       throw e;
+    } finally {
+      if (requestId) activeControllers.delete(requestId);
     }
-  } finally {
-    if (requestId) activeControllers.delete(requestId);
   }
 
   throw lastError || new Error('Request failed');
