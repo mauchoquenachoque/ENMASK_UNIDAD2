@@ -166,6 +166,15 @@ function queryParams(params: PaginationParams): string {
   return buildQueryString(params as Record<string, unknown>);
 }
 
+export async function fetchApiMeta(): Promise<boolean> {
+  try {
+    const res = await fetch(`${BASE}/`, { signal: AbortSignal.timeout(5000) });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 // ---- Auth ----
 export const authApi = {
   register: (email: string, password: string, name: string) =>
