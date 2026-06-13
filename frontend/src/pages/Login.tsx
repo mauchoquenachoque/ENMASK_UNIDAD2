@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { fetchApiMeta } from '../services/api';
 import { jwtDecode } from 'jwt-decode';
@@ -11,10 +11,13 @@ interface Props {
 }
 
 export default function Login({ addToast }: Props) {
-  const { user, loginWithGoogle } = useAuth();
+  const { user, loginWithGoogle, loginWithPassword } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [googleReady, setGoogleReady] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showEmailLogin, setShowEmailLogin] = useState(false);
 
   useEffect(() => {
     if (user) navigate('/', { replace: true });
@@ -97,6 +100,24 @@ export default function Login({ addToast }: Props) {
     initGoogle();
   }, [addToast, loginWithGoogle, navigate]);
 
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      addToast('Please enter email and password', 'error');
+      return;
+    }
+    setLoading(true);
+    try {
+      await loginWithPassword(email, password);
+      addToast('Signed in successfully', 'success');
+      navigate('/');
+    } catch (err: any) {
+      addToast(err.message || 'Invalid credentials', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="login-page">
       <div className="login-container">
@@ -106,18 +127,87 @@ export default function Login({ addToast }: Props) {
             <span className="logo-text">Enmask</span>
           </div>
           <h1>Welcome back</h1>
-          <p>Sign in with your institutional account to continue.</p>
+          <p>Sign in with your account to continue.</p>
         </div>
 
         <div className="login-body">
-          <div id="gsi-btn" className="login-google-btn" />
-          {!googleReady && (
-            <div className="login-loading">
-              <Loader2 size={20} className="loading-spinner-icon" />
-              <span>Loading Google Sign-In...</span>
-            </div>
+          {!showEmailLogin ? (
+            <>
+              <div id="gsi-btn" className="login-google-btn" />
+              {!googleReady && (
+                <div className="login-loading">
+                  <Loader2 size={20} className="loading-spinner-icon" />
+                  <span>Loading Google Sign-In...</span>
+                </div>
+              )}
+
+              <div className="login-divider">
+                <span>or</span>
+              </div>
+
+              <button
+                type="button"
+                className="btn-email-login"
+                onClick={() => setShowEmailLogin(true)}
+              >
+                Sign in with Email
+              </button>
+
+              <div className="login-register-link">
+                <p>Don't have an account? <Link to="/register">Register</Link></p>
+              </div>
+            </>
+          ) : (
+            <form onSubmit={handleEmailLogin} className="login-form">
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  required
+                  autoFocus
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+
+              <button type="submit" className="btn-primary" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Loader2 size={16} className="loading-spinner-icon" />
+                    Signing in...
+                  </>
+                ) : (
+                  'Sign In'
+                )}
+              </button>
+
+              <div className="login-alt-actions">
+                <button type="button" className="btn-link" onClick={() => setShowEmailLogin(false)}>
+                  Back to Google Sign-In
+                </button>
+              </div>
+
+              <div className="login-register-link">
+                <p>Don't have an account? <Link to="/register">Register</Link></p>
+              </div>
+            </form>
           )}
-          {loading && (
+
+          {loading && !showEmailLogin && (
             <div className="login-loading">
               <Loader2 size={20} className="loading-spinner-icon" />
               <span>Signing in...</span>
@@ -128,7 +218,7 @@ export default function Login({ addToast }: Props) {
         <div className="login-footer">
           <div className="login-restriction">
             <Shield size={14} />
-            <span>Only @virtual.upt.pe accounts are allowed</span>
+            <span>Only authorized accounts are allowed</span>
           </div>
         </div>
       </div>

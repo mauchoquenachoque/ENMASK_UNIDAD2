@@ -12,6 +12,7 @@ import Reports from './pages/Reports';
 import Schedules from './pages/Schedules';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import { AuthProvider, ProtectedRoute } from './hooks/useAuth';
 
 export type ToastType = 'success' | 'error' | 'info';
@@ -37,6 +38,7 @@ function AppRoutes() {
     <>
       <Routes>
         <Route path="/login" element={<Login addToast={addToast} />} />
+        <Route path="/register" element={<Register addToast={addToast} />} />
         <Route
           path="/*"
           element={
