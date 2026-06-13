@@ -1,0 +1,44 @@
+{
+  "name": "@enmask/sdk",
+  "version": "1.0.0",
+  "description": "Official TypeScript SDK for the Enmask Data Masking Platform",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "enmask",
+    "data-masking",
+    "pii",
+    "gdpr",
+    "hipaa",
+    "security",
+    "database"
+  ],
+  "author": "Enmask Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/enmask/sdk-typescript"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "eslint": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "dependencies": {}
+}

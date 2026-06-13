@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: enmask
+  labels:
+    app.kubernetes.io/name: enmask
+    app.kubernetes.io/part-of: enmask

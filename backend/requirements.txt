@@ -1,0 +1,50 @@
+# Web framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+pydantic[email]==2.5.3
+
+# Authentication
+PyJWT==2.8.0
+python-multipart==0.0.6
+google-auth==2.25.2
+
+# Database drivers
+asyncpg==0.29.0
+aiomysql==0.2.0
+motor==3.3.2
+sqlalchemy[asyncio]==2.0.23
+aiosqlite==0.19.0
+
+# Security
+bcrypt==4.1.2
+cryptography==41.0.7
+python-dotenv==1.0.0
+
+# Data generation
+faker==22.5.1
+
+# Rate limiting
+slowapi==0.1.9
+
+# Observability
+structlog==24.1.0
+prometheus-client==0.19.0
+opentelemetry-api==1.22.0
+opentelemetry-sdk==1.22.0
+opentelemetry-instrumentation-fastapi==0.43b0
+
+# Task queue
+celery[redis]==5.3.6
+redis==5.0.1
+
+# HTTP client
+httpx==0.25.2
+requests==2.31.0
+
+# Validation
+email-validator==2.1.0
+
+# Export
+openpyxl==3.1.2

@@ -1,0 +1,28 @@
+from enum import Enum
+
+
+class MaskingAlgorithm(str, Enum):
+    SUBSTITUTION = "substitution"
+    HASHING = "hashing"
+    HASHING_SHA256 = "hashing_sha256"
+    HASHING_SHA512 = "hashing_sha512"
+    REDACTION = "redaction"
+    NULLIFICATION = "nullification"
+    TOKENIZATION = "tokenization"
+    PSEUDONYMIZATION = "pseudonymization"
+    SHUFFLING = "shuffling"
+    ENCRYPTION = "encryption"
+    FPE = "fpe"
+    FORMAT_PRESERVING = "format_preserving"
+    PERTURBATION = "perturbation"
+    SYNTHETIC_DATA = "synthetic_data"
+    DIFFERENTIAL_PRIVACY = "differential_privacy"
+    CONSISTENT_MASKING = "consistent_masking"
+    DATE_SHIFT = "date_shift"
+    PHONE_NUMBER = "phone_number"
+    EMAIL = "email"
+    CREDIT_CARD = "credit_card"
+    IP_ADDRESS = "ip_address"
+    SSN = "ssn"
+    ADDRESS = "address"
+    NAME = "name"

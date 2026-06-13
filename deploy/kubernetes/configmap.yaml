@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: enmask-config
+  namespace: enmask
+  labels:
+    app.kubernetes.io/name: enmask
+data:
+  REPOSITORY_BACKEND: "postgres"
+  API_V1_STR: "/api/v1"
+  LOG_LEVEL: "INFO"
+  LOG_FORMAT: "json"
+  RATE_LIMIT_ENABLED: "true"
+  RATE_LIMIT_DEFAULT: "60/minute"
+  METADATA_DATABASE: "enmask_meta"
+  CELERY_BROKER_URL: "redis://redis:6379/1"
+  CELERY_RESULT_BACKEND: "redis://redis:6379/2"
+  REDIS_URL: "redis://redis:6379/0"
+  BACKEND_CORS_ORIGINS: "https://enmask.example.com"
+  FRONTEND_URL: "https://enmask.example.com"

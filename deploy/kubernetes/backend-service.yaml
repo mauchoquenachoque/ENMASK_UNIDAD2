@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: enmask
+  labels:
+    app.kubernetes.io/name: enmask
+    app.kubernetes.io/component: backend
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: enmask
+    app.kubernetes.io/component: backend
+  ports:
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP
+      name: http

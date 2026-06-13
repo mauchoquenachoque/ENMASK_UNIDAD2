@@ -1,0 +1,16 @@
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3
+pytest-cov==4.1.0
+httpx==0.25.2
+
+# Linting
+ruff==0.1.9
+mypy==1.7.1
+
+# Security scanning
+bandit==1.7.6
+safety==2.3.5
+
+# Type stubs
+types-redis==4.6.0.11
